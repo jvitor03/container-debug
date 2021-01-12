@@ -4,7 +4,7 @@ metadata:
   name: debug-service
 spec:
   selector:
-    app: debug-service
+    app: debug-deploy
   ports:
     - protocol: TCP
       port: 80
