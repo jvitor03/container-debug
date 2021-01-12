@@ -1,3 +1,5 @@
+FROM gcr.io/google_containers/pause-amd64:3.0 as dependency
+
 FROM alpine/k8s:1.14.9
 
 RUN apk update && \
@@ -27,9 +29,11 @@ RUN echo -e "PS1='\u@\h: \w # '\n\
     alias k=kubectl\n"\
     >> /root/.bashrc
 
+COPY --from=dependency /pause /pause
+
 ENV http_test_dir=${HOME}/bin/http-test
 RUN echo -e "python3 -m http.server ${1}" > ${http_test_dir} && \
     chmod +x ${http_test_dir}
 
 ENTRYPOINT ["/bin/bash","-l","-c"]
-CMD ["bash"]
+CMD ["/pause"]

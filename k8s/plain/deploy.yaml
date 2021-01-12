@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debug-deploy
+  labels:
+    app: debug-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: debug-deploy
+  template:
+    metadata:
+      labels:
+        app: debug-deploy
+    spec:
+      containers:
+      - name: debug-deploy
+        image: jvitor03/debug
+        ports:
+        - containerPort: 8000
